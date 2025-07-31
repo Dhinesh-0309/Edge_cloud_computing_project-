@@ -1,0 +1,22 @@
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  name: capstone-app-deployment
+spec:
+  replicas: 0
+  selector:
+    matchLabels:
+      app: capstone-app
+  template:
+    metadata:
+      labels:
+        app: capstone-app
+    spec:
+      nodeSelector:
+        kubernetes.io/hostname: cloud-environment-control-plane
+      containers:
+      - name: capstone-app-container
+        image: dhineshpandian/capstone-app:v2
+        ports:
+        - containerPort: 8080
+
