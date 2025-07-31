@@ -1,0 +1,16 @@
+apiVersion: argoproj.io/v1alpha1
+kind: Application
+metadata:
+  name: capstone-app-cloud
+  namespace: argocd
+spec:
+  project: default
+  source:
+    repoURL: https://github.com/Dhinesh-0309/Edge_cloud_computing_project-.git
+    targetRevision: HEAD
+    path: Documents/capstone-project/Cloud  # <-- Points to the cloud directory
+  destination:
+    server: https://kubernetes.default.svc
+    namespace: default
+  syncPolicy:
+    automated: { prune: true, selfHeal: true }

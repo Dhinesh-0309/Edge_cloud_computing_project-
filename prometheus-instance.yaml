@@ -1,0 +1,28 @@
+apiVersion: monitoring.coreos.com/v1
+kind: Prometheus
+metadata:
+  name: prometheus
+spec:
+  serviceMonitorSelector:
+    matchLabels:
+      team: aether
+  resources:
+    requests:
+      memory: 400Mi
+---
+apiVersion: monitoring.coreos.com/v1
+kind: ServiceMonitor
+metadata:
+  name: kubelet
+  labels:
+    team: aether
+spec:
+  selector:
+    matchLabels:
+      app: kubelet
+  endpoints:
+  - port: http-metrics
+    interval: 15s
+  namespaceSelector:
+    matchNames:
+    - kube-system
